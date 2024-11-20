@@ -25,24 +25,31 @@ namespace GroceryApp.Controllers
             // Get data of both categories and items.
             var categories = await _context.Category.ToListAsync();
             var items = await _context.Item.ToListAsync();
-            var viewModel = new IndexModel
+
+            // Create data structure using IndexModel to be used in the Index.cshtml file.
+            var data = new IndexModel
             {
                 Categories = categories,
                 Item = items,
             };
-            return View(viewModel);
+            return View(data);
         }
 
         // GET: Items/Create
         public async Task<IActionResult> Create()
         {
+            // Get SQL data of all the categories.
             var categories = await _context.Category.ToListAsync();
-            var viewModel = new IndexViewModel
+
+            // Create data structure using CreateModel and the categories in the database, along with the Item field names. 
+            var data = new CreateModel
             {
                 Categories = categories,
                 Item = new Items(),
             };
-            return View(viewModel);
+
+            // Returns to Create.cshtml file.
+            return View(data);
         }
 
         // POST: Items/Create
@@ -51,15 +58,19 @@ namespace GroceryApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ItemName, ItemDescription, CategoryId")] Items item)
         {
+            // First check to see if form is valid.
             if (ModelState.IsValid)
             {
-                var newItem = new Items
+                // Use Items model to store the input.
+                var data = new Items
                 {
                     ItemName = item.ItemName,
                     ItemDescription = item.ItemDescription,
                     CategoryId = item.CategoryId 
                 };
-                _context.Item.Add(newItem);
+
+                // Add the record to the database.
+                _context.Item.Add(data);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -70,25 +81,31 @@ namespace GroceryApp.Controllers
         // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
+            // Check if id is passed.
             if (id == null)
             {
                 return NotFound();
             }
 
+            // Get item by id that is passed.
             var items = await _context.Item.FindAsync(id);
+
+            // Get all categories.
             var categories = await _context.Category.ToListAsync();
             if (items == null)
             {
                 return NotFound();
             }
 
-            var viewModel = new EditModel
+            // Pass data from 1 record and all category names.
+            var data = new EditModel
             {
                 Categories = categories,
                 Item = items,
             };
 
-            return View(viewModel);
+            return View(data);
         }
 
         // POST: Items/Edit/5
@@ -98,7 +115,8 @@ namespace GroceryApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ItemName,ItemDescription,CategoryId")] Items item)
         {
-            var newItem = new Items
+            // Get data from form.
+            var data = new Items
             {
                 Id = id,
                 ItemName = item.ItemName,
@@ -110,9 +128,12 @@ namespace GroceryApp.Controllers
             {
                 try
                 {
-                    _context.Update(newItem);
+                    // Try to update data.
+                    _context.Update(data);
                     await _context.SaveChangesAsync();
                 }
+
+                // Throw error if form is submitted.
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!ItemsExists(item.Id))
@@ -126,7 +147,8 @@ namespace GroceryApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(newItem);
+
+            return View(data);
         }
 
         // GET: Items/Delete/5

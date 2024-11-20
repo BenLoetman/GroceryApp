@@ -4,6 +4,13 @@
     ViewData["Title"] = "Edit";
 }
 
+<!--
+
+    Uses EditModel to get data. EditrModel retuurns the record's data which was selected. 
+    Then when the user submitrs the form it calls the Edit function in the ItemsController and updates the record. 
+
+-->
+
 
 <div class="">
     <div class="row">
@@ -13,37 +20,6 @@
 </div>
 <hr />
 
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <input type="hidden" asp-for="Item.Id" />
-            <div class="form-group">
-                <label asp-for="Item.ItemName" class="control-label"></label>
-                <input asp-for="Item.ItemName" class="form-control" />
-                <span asp-validation-for="Item.ItemName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Item.ItemDescription" class="control-label"></label>
-                <input asp-for="Item.ItemDescription" class="form-control" />
-                <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
-            </div>
-
-            <div class="center">
-                <select asp-for="Item.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "CategoryName"))">
-                    <option value="">-- Select a Category --</option>
-                </select>
-                <span asp-validation-for="Item.CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<!--
 <div class="container">
     <div class="row">
         <div class="col-md-4 offset-md-4">
@@ -90,14 +66,13 @@
 
                 <div class="form-group">
                     <div class="offset-5">
-                        <input type="submit" value="Add Item" class="btn btn-primary" />
+                        <input type="submit" value="Edit Item" class="btn btn-primary" />
                     </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
--->
 
 <div>
     <a asp-action="Index">Back to List</a>

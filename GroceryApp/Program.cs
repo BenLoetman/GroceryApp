@@ -29,6 +29,8 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+// Makes Item index page default page when user loads site. This page displays all of the data. 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Items}/{action=Index}/{id?}");

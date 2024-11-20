@@ -1,9 +1,15 @@
-﻿@model GroceryApp.Models.IndexViewModel
+﻿@model GroceryApp.Models.CreateModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
+
+<!--
+    Uses CreateModel to get fields that are needed in the SQL database. 
+    Then when the user enters data for all fields and press add item button new record is created in database.
+
+-->
 
 <h1 class="text-center mb-5">Add Item To List</h1>
 

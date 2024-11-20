@@ -4,6 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
+
+<!--
+    
+    Uses IndexModel to get data. IndexModel returns the category names and the items the user added.
+    Then the items are display for each category, with a button to edit and delete.
+
+-->
 @foreach (var category in Model.Categories)
 {
 
