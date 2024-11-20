@@ -1,0 +1,66 @@
+﻿@model GroceryApp.Models.IndexViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<h1 class="text-center mb-5">Add Item To List</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group mb-4">
+                    <div class="row mb-2">
+                        <div class="text-center">
+                            <label asp-for="Item.CategoryId" class="control-label">Category</label>
+                        </div>
+                    </div>
+                    <div class="center">
+                        <select asp-for="Item.CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories, "Id", "CategoryName"))">
+                            <option value="">-- Select a Category --</option>
+                        </select>
+                        <span asp-validation-for="Item.CategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="row mb-2">
+                        <div class="text-center">
+                            <label asp-for="Item.ItemName" class="control-label">Item Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input asp-for="Item.ItemName" class="form-control" />
+                        <span asp-validation-for="Item.ItemName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-4">
+                    <div class="row mb-2">
+                        <div class="text-center">
+                            <label asp-for="Item.ItemDescription" class="control-label">Item Description</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input asp-for="Item.ItemDescription" class="form-control" />
+                        <span asp-validation-for="Item.ItemDescription" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="offset-5">
+                        <input type="submit" value="Add Item" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

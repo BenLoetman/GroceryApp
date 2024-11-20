@@ -1,0 +1,51 @@
+﻿@model GroceryApp.Models.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@foreach (var category in Model.Categories)
+{
+
+    <div class="container mb-4">
+        <div classs="row">
+            <h3 class="col text-center">
+                        @Html.DisplayFor(modelItem => category.CategoryName)
+            </h3>
+        </div>
+        @foreach (var item in Model.Item)
+        {
+            @if (item.CategoryId == category.Id)
+            {
+                <div class="container mt-4" style="background-color:@category.CategoryColor;">
+                    <div class="row mb-4">
+                        <div class="col offset-lg-1">
+                            <div class="row">
+                                <h5 class="col-5">Item Name: </h5>
+                                <div class="col align-items-start">
+                                    @Html.DisplayFor(modelItem => item.ItemName)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col offset-lg-2">
+                            <div class="row">
+                                <h5 class="col-6">Item Description: </h5>
+                                <div class="col align-items-start">
+                                    @Html.DisplayFor(modelItem => item.ItemDescription)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col offset-lg-1">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                        </div>
+                        <div class="col offset-lg-2 mb-3">
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
